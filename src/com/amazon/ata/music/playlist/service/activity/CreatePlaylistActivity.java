@@ -15,6 +15,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.collections.Sets;
 
+import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -25,14 +27,12 @@ import java.util.Set;
 public class CreatePlaylistActivity implements RequestHandler<CreatePlaylistRequest, CreatePlaylistResult> {
     private final Logger log = LogManager.getLogger();
     private final PlaylistDao playlistDao;
-
-
-
     /**
      * Instantiates a new CreatePlaylistActivity object.
      *
      * @param playlistDao PlaylistDao to access the playlists table.
      */
+    @Inject
     public CreatePlaylistActivity(PlaylistDao playlistDao) {
         this.playlistDao = playlistDao;
     }
@@ -68,10 +68,10 @@ public class CreatePlaylistActivity implements RequestHandler<CreatePlaylistRequ
         playlist.setId(MusicPlaylistServiceUtils.generatePlaylistId());
         playlist.setTags(Sets.newHashSet(createPlaylistRequest.getTags()));
         playlist.setCustomerId(createPlaylistRequest.getCustomerId());
-        playlistDao.savePlay(playlist);
+        playlist.setSongList(new ArrayList<>());
 
         return CreatePlaylistResult.builder()
-                .withPlaylist(new ModelConverter().toPlaylistModel(playlist))
+                .withPlaylist(new ModelConverter().toPlaylistModel(playlistDao.savePlaylist(playlist)))
                 .build();
     }
 }

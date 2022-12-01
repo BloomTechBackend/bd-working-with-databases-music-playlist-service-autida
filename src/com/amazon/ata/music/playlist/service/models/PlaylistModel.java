@@ -11,9 +11,7 @@ public class PlaylistModel {
     private int songCount;
     private List<String> tags;
 
-    public PlaylistModel() {
-
-    }
+    public PlaylistModel() {}
 
     public PlaylistModel(Builder builder) {
         this.id = builder.id;
@@ -122,10 +120,11 @@ public class PlaylistModel {
         }
 
         public Builder withTags(Set<String> tagsToUse) {
-            if(tagsToUse.isEmpty()) {
+            if(tagsToUse == null) {
                 this.tags = null;
+            } else {
+                this.tags = (Lists.newArrayList(tagsToUse));
             }
-            this.tags = (Lists.newArrayList(tagsToUse));
             return this;
         }
 

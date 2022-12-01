@@ -73,6 +73,21 @@ class AlbumTrackNotFoundException {
 + AlbumTrackNotFoundException(String, Throwable)
 }
 
+class InvalidAttributeException {
+- {static} serialVersionUID: long
++ InvalidAttributeException()
++ InvalidAttributeException(String)
++ InvalidAttributeException(Throwable)
++ InvalidAttributeException(String, Throwable);
+}
+
+class InvalidAttributeChangeException {
+- {static} serialVersionUID: long
++ InvalidAttributeChangeException()
++ InvalidAttributeChangeException(String)
++ InvalidAttributeException(Throwable)
++ InvalidAttributeException(String, Throwable);
+}
 class Playlist {
 - @DynamoDBHashKey id : String
 - name: String
@@ -117,4 +132,6 @@ PlaylistDao --* GetPlaylistSongsActivity
 PlaylistDao --* UpdatePlaylistActivity
 AlbumTrack --* Playlist
 AlbumtrackDao --* AddSongToPlaylistActivity
+InvalidAttributeException <|-- InvalidAttributeChangeException
+InvalidAttributeException <|-- InvalidAttributeValueException
 @enduml

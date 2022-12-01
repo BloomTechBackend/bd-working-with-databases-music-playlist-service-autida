@@ -5,6 +5,9 @@ import com.amazon.ata.music.playlist.service.exceptions.PlaylistNotFoundExceptio
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
+import javax.inject.Inject;
+import java.util.ArrayList;
+
 /**
  * Accesses data for a playlist using {@link Playlist} to represent the model in DynamoDB.
  */
@@ -16,6 +19,7 @@ public class PlaylistDao {
      *
      * @param dynamoDbMapper the {@link DynamoDBMapper} used to interact with the playlists table
      */
+    @Inject
     public PlaylistDao(DynamoDBMapper dynamoDbMapper) {
         this.dynamoDbMapper = dynamoDbMapper;
     }
@@ -28,18 +32,14 @@ public class PlaylistDao {
      */
     public Playlist getPlaylist(String id) {
         Playlist playlist = this.dynamoDbMapper.load(Playlist.class, id);
-
         if (playlist == null) {
             throw new PlaylistNotFoundException("Could not find playlist with id " + id);
         }
-
         return playlist;
     }
 
-    public void savePlay(Playlist playlist) {
-
-        if(playlist != null) {
-            dynamoDbMapper.save(playlist);
-        }
+    public Playlist savePlaylist(Playlist playlist) {
+        dynamoDbMapper.save(playlist);
+        return playlist;
     }
 }
