@@ -73,12 +73,12 @@ public class AddSongToPlaylistActivity implements RequestHandler<AddSongToPlayli
         }
         List<AlbumTrack> albumTracks = playlist.getSongList();
         if(!addSongToPlaylistRequest.isQueueNext()) {
-            playlist.setSongList(albumTracks);
+            albumTracks.add(albumTrack);
         } else {
             albumTracks.add(0, albumTrack);
         }
 
-
+        playlist.setSongList(albumTracks);
         playlist.setSongCount(playlist.getSongCount() + 1);
         Playlist updatedPlaylist = playlistDao.savePlaylist(playlist);
         List<SongModel> songModels = new ArrayList<>();
