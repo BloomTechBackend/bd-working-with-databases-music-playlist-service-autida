@@ -25,26 +25,26 @@ public class AlbumTrack {
     }
 
     @DynamoDBRangeKey(attributeName = "track_number")
-    public Integer getTrack_number() {
+    public Integer getTrackNumber() {
         return trackNumber;
     }
 
-    public void setTrack_number(Integer track_number) {
+    public void setTrackNumber(Integer track_number) {
         this.trackNumber = track_number;
     }
     @DynamoDBAttribute(attributeName = "album_name")
-    public String getAlbum_name() {
+    public String getAlbumName() {
         return albumName;
     }
 
-    public void setAlbum_name(String album_name) {
+    public void setAlbumName(String album_name) {
         this.albumName = album_name;
     }
     @DynamoDBAttribute(attributeName = "song_title")
-    public String getSong_title() {
+    public String getSongTitle() {
         return songTitle;
     }
-    public void setSong_title(String song_title) {
+    public void setSongTitle(String song_title) {
         this.songTitle = song_title;
     }
 }

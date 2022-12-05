@@ -62,11 +62,15 @@ public class CreatePlaylistActivity implements RequestHandler<CreatePlaylistRequ
         //savePlaylist using PlaylistDao
         //it will return the Playlist
         //Call Mplsutils toPlaylistMody and send Playlist,expect a PlaylistModel return;
+        Set<String> tag = null;
+        if(createPlaylistRequest.getTags().size() > 0) {
+            tag = Sets.newHashSet(createPlaylistRequest.getTags());
+        }
 
         Playlist playlist = new Playlist();
         playlist.setName(createPlaylistRequest.getName());
         playlist.setId(MusicPlaylistServiceUtils.generatePlaylistId());
-        playlist.setTags(Sets.newHashSet(createPlaylistRequest.getTags()));
+        playlist.setTags(tag);
         playlist.setCustomerId(createPlaylistRequest.getCustomerId());
         playlist.setSongList(new ArrayList<>());
 
