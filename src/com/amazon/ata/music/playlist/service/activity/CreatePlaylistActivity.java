@@ -16,8 +16,7 @@ import org.apache.logging.log4j.Logger;
 import org.testng.collections.Sets;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Implementation of the CreatePlaylistActivity for the MusicPlaylistService's CreatePlaylist API.
@@ -57,13 +56,9 @@ public class CreatePlaylistActivity implements RequestHandler<CreatePlaylistRequ
                 !MusicPlaylistServiceUtils.isValidString(createPlaylistRequest.getCustomerId())) {
             throw new InvalidAttributeValueException();
         }
-        //must call generatePlaylist Id or Create a Playlist Object
-        //Populate the playlist object
-        //savePlaylist using PlaylistDao
-        //it will return the Playlist
-        //Call Mplsutils toPlaylistMody and send Playlist,expect a PlaylistModel return;
+        //NOTE: DynamoDB already supports empty list
         Set<String> tag = null;
-        if(createPlaylistRequest.getTags().size() > 0) {
+        if(createPlaylistRequest.getTags() != null) {
             tag = Sets.newHashSet(createPlaylistRequest.getTags());
         }
 
@@ -72,7 +67,7 @@ public class CreatePlaylistActivity implements RequestHandler<CreatePlaylistRequ
         playlist.setId(MusicPlaylistServiceUtils.generatePlaylistId());
         playlist.setTags(tag);
         playlist.setCustomerId(createPlaylistRequest.getCustomerId());
-        playlist.setSongList(new ArrayList<>());
+        playlist.setSongList(new LinkedList<>());
 
         return CreatePlaylistResult.builder()
                 .withPlaylist(new ModelConverter().toPlaylistModel(playlistDao.savePlaylist(playlist)))

@@ -68,23 +68,24 @@ public class AddSongToPlaylistActivity implements RequestHandler<AddSongToPlayli
             throw new PlaylistNotFoundException();
         }
         AlbumTrack albumTrack = albumTrackDao.getAlbumTrack(addSongToPlaylistRequest.getAsin(), addSongToPlaylistRequest.getTrackNumber());
-        if(albumTrack == null) {
+        if(albumTrack.getAsin() == null || albumTrack.getTrackNumber() == null) {
             throw new AlbumTrackNotFoundException();
         }
-        List<AlbumTrack> albumTracks = playlist.getSongList();
+        LinkedList<AlbumTrack> albumTracks = (LinkedList<AlbumTrack>) playlist.getSongList();
         if(!addSongToPlaylistRequest.isQueueNext()) {
-            albumTracks.add(albumTrack);
+            albumTracks.addLast(albumTrack);
         } else {
-            albumTracks.add(0, albumTrack);
+            albumTracks.addFirst(albumTrack);
         }
-
         playlist.setSongList(albumTracks);
-        playlist.setSongCount(playlist.getSongCount() + 1);
+        playlist.setSongCount(albumTracks.size());
         Playlist updatedPlaylist = playlistDao.savePlaylist(playlist);
+        System.out.println("updatedPlaylist"+updatedPlaylist);
         List<SongModel> songModels = new ArrayList<>();
         for(AlbumTrack song: updatedPlaylist.getSongList()) {
             SongModel songModel = new ModelConverter().toSongModel(song);
             songModels.add(songModel);
+            System.out.println("songModelLoop "+ song.getSongTitle());
         }
         return AddSongToPlaylistResult.builder()
                 .withSongList(songModels)

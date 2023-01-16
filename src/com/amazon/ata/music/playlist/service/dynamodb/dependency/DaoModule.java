@@ -1,4 +1,4 @@
-package com.amazon.ata.music.playlist.service.dependency;
+package com.amazon.ata.music.playlist.service.dynamodb.dependency;
 
 import com.amazon.ata.aws.dynamodb.DynamoDbClientProvider;
 import com.amazonaws.regions.Regions;

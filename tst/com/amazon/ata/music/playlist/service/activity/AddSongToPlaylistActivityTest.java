@@ -173,4 +173,6 @@ public class AddSongToPlaylistActivityTest {
 
         AlbumTrackTestHelper.assertAlbumTrackEqualsSongModel(albumTrackToAdd, firstSong);
     }
+
+
 }

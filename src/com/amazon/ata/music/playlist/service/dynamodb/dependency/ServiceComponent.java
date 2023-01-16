@@ -1,4 +1,4 @@
-package com.amazon.ata.music.playlist.service.dependency;
+package com.amazon.ata.music.playlist.service.dynamodb.dependency;
 
 import com.amazon.ata.music.playlist.service.activity.*;
 import com.amazon.ata.music.playlist.service.dynamodb.AlbumTrackDao;

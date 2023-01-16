@@ -131,7 +131,6 @@ PlaylistDao --* CreatePlaylistActivity
 PlaylistDao --* GetPlaylistSongsActivity
 PlaylistDao --* UpdatePlaylistActivity
 AlbumTrack --* Playlist
-AlbumtrackDao --* AddSongToPlaylistActivity
 InvalidAttributeException <|-- InvalidAttributeChangeException
 InvalidAttributeException <|-- InvalidAttributeValueException
 @enduml
